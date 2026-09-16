@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.techshift.crm.HomeScreen
-import com.techshift.crm.LoginScreen
+import com.techshift.crm.ui.home.HomeScreen
+import com.techshift.crm.ui.login.LoginScreen
 
 @Composable
 fun AppNavigation(paddingValues: PaddingValues) {
