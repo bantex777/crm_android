@@ -41,12 +41,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.techshift.crm.nav.AppNavigation
 import com.techshift.crm.ui.theme.CRMTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CRMTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   LoginScreen(paddingValues = innerPadding)
+                   AppNavigation(paddingValues = innerPadding)
                 }
             }
         }
@@ -66,11 +66,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen(
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onLoginSuccess: () -> Unit,
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
+    var passwordVisible by remember { mutableStateOf(value = false) }
 
     var usernameError by remember { mutableStateOf("") }
     var passwordError by remember { mutableStateOf("") }
@@ -82,14 +83,14 @@ fun LoginScreen(
         isPlaying = true,
         composition = composition,
         iterations = LottieConstants.IterateForever,
-        speed = 0.7f
+        speed = 0.7f,
     )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
         LottieAnimation(
@@ -114,7 +115,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp, horizontal = 20.dp),
             colors = TextFieldDefaults.colors(
                 focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White
+                unfocusedTextColor = Color.White,
             )
         )
 
@@ -141,7 +142,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp, horizontal = 20.dp),
             colors = TextFieldDefaults.colors(
                 focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White
+                unfocusedTextColor = Color.White,
             )
         )
 
@@ -153,31 +154,37 @@ fun LoginScreen(
                 usernameError = if (username.isBlank()) " Username is required" else ""
                 passwordError = if (password.isBlank()) "Password is required" else ""
                 if (usernameError.isEmpty() && passwordError.isEmpty()) {
-
+                    onLoginSuccess()
+                    println("Login successful for $username")
                 }
             },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 90.dp)
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 90.dp),
         ) {
             Text(text = "Login")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text( text = "Forgot Password?" , color = MaterialTheme.colorScheme.primary,
-             modifier = Modifier.clickable {
+        Text(
+            text = "Forgot Password?",
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.clickable {
 
-             })
+            }
+        )
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        Row() {
+        Row {
             Text(text = "Not a member?")
             Spacer(modifier = Modifier.width(5.dp))
-            Text(text = "Sign in now!",
+            Text(
+                text = "Sign in now!",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable{
+                modifier = Modifier.clickable {
 
-                })
+                }
+            )
 
         }
 
@@ -189,6 +196,6 @@ fun LoginScreen(
 @Composable
 fun GreetingPreview() {
     CRMTheme {
-        LoginScreen(paddingValues = PaddingValues(0.dp))
+        LoginScreen(paddingValues = PaddingValues(0.dp)) {}
     }
 }
