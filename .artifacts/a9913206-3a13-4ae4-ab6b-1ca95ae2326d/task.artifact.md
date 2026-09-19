@@ -1,0 +1,3 @@
+- [ ] Modify `RetrofitClient.kt` to add `OkHttpClient` with interceptors.
+- [ ] Modify `LoginViewModel.kt` to fix exception handling.
+- [ ] Verify the fix.
