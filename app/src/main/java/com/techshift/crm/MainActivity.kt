@@ -15,11 +15,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CRMTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   AppNavigation(paddingValues = innerPadding)
-                }
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                AppNavigation(paddingValues = innerPadding)
             }
+//            CRMTheme {
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                   AppNavigation(paddingValues = innerPadding)
+//                }
+//            }
         }
     }
 }

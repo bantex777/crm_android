@@ -164,9 +164,11 @@ fun LoginScreen(
                 usernameError = if (username.isBlank()) " Username is required" else ""
                 passwordError = if (password.isBlank()) "Password is required" else ""
                 if (usernameError.isEmpty() && passwordError.isEmpty()) {
+//                     If Connected to backend
+//                    viewModel.login(username, password)
+//                    println("Login successful for $username")
 
-                    viewModel.login(username, password)
-                    println("Login successful for $username")
+                    onLoginSuccess()
                 }
             },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 90.dp),
